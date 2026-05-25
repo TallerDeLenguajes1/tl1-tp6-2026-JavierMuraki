@@ -1,81 +1,86 @@
-﻿float Operacion = 0;
+﻿string Operacion = "";
 float NumeroA = 0;
 float NumeroB = 0;
 bool Continuar = true;
 string? Input = "";
 
-while (Continuar) {
-    Console.WriteLine("Operaciones:");
-    Console.WriteLine("1 - El valor absoluto de un número");
-    Console.WriteLine("2 - El cuadrado");
-    Console.WriteLine("3 - La raíz cuadrada");
-    Console.WriteLine("4 - El Seno");
-    Console.WriteLine("5 - El Coseno");
-    Console.WriteLine("6 - La parte entera de un tipo float");
-    Console.WriteLine("7 - Suma");
-    Console.WriteLine("8 - Resta");
-    Console.WriteLine("9 - Multiplicar");
-    Console.WriteLine("10 - Dividir\n");
+// Ejercicios con String //
+Console.Write("Ingrese un texto: ");
+string? Cadena1 = Console.ReadLine();
 
-    // Ingreso de tipo de operacion
-    Console.Write("Igrese operacion: ");
+if (!string.IsNullOrWhiteSpace(Cadena1)) {
+    Console.WriteLine($"Longitud: {Cadena1.Length}\n");
+    Console.Write("Ingrese segundo texto: ");
+    string? Cadena2 = Console.ReadLine();
+
+    if (!string.IsNullOrWhiteSpace(Cadena2)) {
+        Console.WriteLine($"Texto concatenado: {Cadena1}{Cadena2}");
+        Console.WriteLine($"Texto con Substring(5): {Cadena1.Substring(Math.Min(5, Cadena1.Length))}"); // Para evitar error usando Math.Min
+
+        Console.Write("Letras de Texto: ");
+        foreach (char Letra in Cadena1) Console.Write(Letra + " ");
+        Console.Write("\n\n");
+
+        if (Cadena1.Contains("hola")) Console.WriteLine("El Texto contiene \"hola\"");
+        else Console.WriteLine("El Texto NO tiene \"hola\"");
+
+        Console.WriteLine("Texto en Mayusculas: " + Cadena1.ToUpper());
+        Console.WriteLine("Texto en Minusculas: " + Cadena1.ToLower());
+        
+        string[] TextoSeparado = Cadena1.Split("a");
+        Console.WriteLine("Texto separado por \"a\":");
+        foreach (string Texto in TextoSeparado) Console.WriteLine("- " + Texto);
+    } else {
+        Console.WriteLine("Texto vacio\n");
+    }
+} else {
+    Console.WriteLine("Texto vacio\n");
+}
+
+
+// Caluladora //
+while (Continuar) {
+    // Ingreso del Calculo
+    Console.Write("Igrese su calculo: ");
     Input = Console.ReadLine();
-    if (!float.TryParse(Input, out Operacion)) {
-        Console.WriteLine("Ingreso invalido: [" + Input + "] Se esperaba un numero.");
+
+    if (string.IsNullOrWhiteSpace(Input)) {
+        Console.WriteLine("Operacion vacia");
         return;
     };
-    if ((Operacion < 1 || Operacion > 10 )) {
-        Console.WriteLine("Operacion invalida: [" + Operacion + "] no pertenece a ninguna de las opciones.");
-        return; 
+
+    if (Input.Contains("+")) Operacion = "+";
+    else if (Input.Contains("-")) Operacion = "-";
+    else if (Input.Contains("*")) Operacion = "*";
+    else if (Input.Contains("/")) Operacion = "/";
+    else {
+        Console.WriteLine("Operador inválido");
+        return;
     }
 
-    // Ingreso del Numero A
-    Console.Write("Igrese Numero A: ");
-    Input = Console.ReadLine();
-    if (!float.TryParse(Input, out NumeroA)) {
-        Console.WriteLine("Ingreso invalido: [" + Input + "] Se esperaba un numero.");
+    string[] Partes = Input.Split(Operacion);
+    if (!float.TryParse(Partes[0], out NumeroA)) {
+        Console.WriteLine("No se pudo conseguir el primer numero");
         return;
-    };
-
-    // Ingreso del Numero B
-    Console.Write("Igrese Numero B: ");
-    Input = Console.ReadLine();
-    if (!float.TryParse(Input, out NumeroB)) {
-        Console.WriteLine("Ingreso invalido: [" + Input + "] Se esperaba un numero.");
+    }
+    if (!float.TryParse(Partes[1], out NumeroB)) {
+        Console.WriteLine("No se pudo conseguir el segundo numero");
         return;
-    };
+    }
 
     Console.WriteLine("\nResultado de las operaciones:");
     switch (Operacion) {
-        case 1: // El valor absoluto de un número
-            Console.WriteLine("Valor absoluto de A y B: " + Math.Abs(NumeroA) + " | " + Math.Abs(NumeroB));
+        case "+": // Suma
+            Console.WriteLine("Suma de \"A\" y \"B\": " + (NumeroA + NumeroB));
             break;
-        case 2: // El cuadrado
-            Console.WriteLine("El cuadrado de A y B: " + Math.Pow(NumeroA, 2) + " | " + Math.Pow(NumeroB, 2));
+        case "-": // Resta
+            Console.WriteLine("Resta de \"A\" y \"B\": " + (NumeroA - NumeroB));
             break;
-        case 3: // La raíz cuadrada
-            Console.WriteLine("La raíz cuadrada de A y B: " + Math.Sqrt(NumeroA) + " | " + Math.Sqrt(NumeroB));
+        case "*": // Multiplicacion
+            Console.WriteLine("Multiplicacion de \"A\" y \"B\": " + (NumeroA * NumeroB));
             break;
-        case 4: // El Seno
-            Console.WriteLine("El Seno de A y B: " + Math.Sin(NumeroA) + " | " + Math.Sin(NumeroB));
-            break;
-        case 5: // El Coseno
-            Console.WriteLine("El Coseno de A y B: " + Math.Cos(NumeroA) + " | " + Math.Cos(NumeroB));
-            break;
-        case 6: // La parte entera de un tipo float
-            Console.WriteLine("El entero de A y B: " + Math.Floor(NumeroA) + " | " + Math.Floor(NumeroB));
-            break;
-        case 7: // Suma
-            Console.WriteLine("Suma de A y B" + (NumeroA + NumeroB));
-            break;
-        case 8: // Resta
-            Console.WriteLine("Resta de A y B" + (NumeroA - NumeroB));
-            break;
-        case 9: // Multiplicacion
-            Console.WriteLine("Multiplicacion de A y B" + (NumeroA * NumeroB));
-            break;
-        case 10: // Division
-            Console.WriteLine("Division de A y B" + (NumeroA / NumeroB));
+        case "/": // Division
+            Console.WriteLine("Division de \"A\" y \"B\": " + (NumeroA / NumeroB));
             break;
     }
     Console.WriteLine("Numero Maximo: " + Math.Max(NumeroA, NumeroB));
