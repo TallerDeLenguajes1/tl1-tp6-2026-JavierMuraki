@@ -66,16 +66,16 @@ while (Continuar) {
             Console.WriteLine("El entero de A y B: " + Math.Floor(NumeroA) + " | " + Math.Floor(NumeroB));
             break;
         case 7: // Suma
-            Console.Write("Suma de A y B" + (NumeroA + NumeroB));
+            Console.WriteLine("Suma de A y B" + (NumeroA + NumeroB));
             break;
         case 8: // Resta
-            Console.Write("Resta de A y B" + (NumeroA - NumeroB));
+            Console.WriteLine("Resta de A y B" + (NumeroA - NumeroB));
             break;
         case 9: // Multiplicacion
-            Console.Write("Multiplicacion de A y B" + (NumeroA * NumeroB));
+            Console.WriteLine("Multiplicacion de A y B" + (NumeroA * NumeroB));
             break;
         case 10: // Division
-            Console.Write("Division de A y B" + (NumeroA / NumeroB));
+            Console.WriteLine("Division de A y B" + (NumeroA / NumeroB));
             break;
     }
     Console.WriteLine("Numero Maximo: " + Math.Max(NumeroA, NumeroB));
